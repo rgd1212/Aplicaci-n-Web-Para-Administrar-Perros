@@ -1,23 +1,25 @@
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 export default function CrearPerro() {
   const url = "https://sample-dogs-api.netlify.app/api/v1/dogs";
+  const navigate = useNavigate();
 
+  // VARIABLES
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [age, setAge] = useState("");
   const [bio, setBio] = useState("");
   const [breed, setBreed] = useState("");
   const [color, setColor] = useState("");
-  const [favoritetoy, setFavoriteToy] = useState("");
+  const [favoriteToy, setFavoriteToy] = useState("");
   const [personality, setPersonality] = useState("");
-  const [setNuevoPerro] = useState({});
 
-  // obtener valor de inputs
 
+  // OBTENER VALORES DE INPUT
   function valorName(e) {
     setName(e.target.value);
   }
@@ -43,8 +45,8 @@ export default function CrearPerro() {
     setPersonality(e.target.value);
   }
 
+  // FUNCION ENVIAR DATOS
   function enviarDatos() {
-    // console.log("clic")
     if (name && image && age && bio && breed && color !== "") {
       console.log("Se creo el perro");
       crearPerro();
@@ -53,22 +55,25 @@ export default function CrearPerro() {
     }
   }
 
-  const date = {
+  // DATOS DE API
+  const data = {
     name,
     image,
     age,
     bio,
     breed,
     color,
-    favoritetoy,
+    favoriteToy,
     personality,
   };
 
+  // FUNCION CREAR
   function crearPerro() {
     axios
-      .post(url,date)
+      .post(url,data)
       .then((res) => {
-        setNuevoPerro(res);
+        console.log(res);
+        navigate('/ver');
       })
       .catch((error) => {
         console.log(error);

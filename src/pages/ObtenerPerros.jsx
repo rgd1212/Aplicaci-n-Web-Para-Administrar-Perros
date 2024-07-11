@@ -32,7 +32,7 @@ export default function ObtenerPerros() {
     axios.delete(url + '/' + id)
       .then((res) => {
         console.log(res);
-        obtenerPerros();
+        obtenerPerros(); 
       })
       .catch((error) => {
         console.log(error);
@@ -54,16 +54,15 @@ export default function ObtenerPerros() {
                     src={perro.image}
                   />
                   <Card.Body>
-                    <Card.Title>{perro.name}</Card.Title>
-                    <Card.Text>{perro.bio}</Card.Text>
+                    <Card.Title>{ perro.name }</Card.Title>
+                    <Card.Text>{ perro.bio }</Card.Text>
                   </Card.Body>
                   <ListGroup className="list-group-flush">
                     <ListGroup.Item>
-                      {" "}
-                      Es de raza {perro.breed} de color {perro.color}
+                      Es de raza { perro.breed } de color { perro.color }
                     </ListGroup.Item>
-                    <ListGroup.Item>{perro.color}</ListGroup.Item>
-                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                    <ListGroup.Item>Tiene {perro.age} años con una personalidad { perro.personality }</ListGroup.Item>
+                    <ListGroup.Item>Y su Juguete favorito es { perro.favoriteToy  }</ListGroup.Item>
                   </ListGroup>
                   <Card.Body  className="mx-auto">
                     <Button onClick={() => navigate('/actualizar/' + perro._id)} variant="info" size="lg">

@@ -1,5 +1,5 @@
 import axios from "axios"
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -7,22 +7,30 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function ActualizarPerros() {
   const url = "https://sample-dogs-api.netlify.app/api/v1/dogs/";
 
-  
-
   const navigate = useNavigate();
   const params = useParams();
-  const [name, setName] = useState([]);
+
+  // VARIABLES PARA LOS INPUTS
+  const [nameApi, setNameApi] = useState('');
+  const [imageApi, setImageApi] = useState('');
+  const [ageApi, setAgeApi] = useState('');
+  const [bioApi, setBioApi] = useState('');
+  const [breedApi, setBreedApi] = useState('');
+  const [colorApi, setColorApi] = useState('');
+  const [favoriteToyApi, setFavoriteToyApi] = useState('');
+  const [personalityApi, setPersonalityApi] = useState('');
+
+  // VARIALES PARA LA API
+  const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [age, setAge] = useState("");
   const [bio, setBio] = useState("");
   const [breed, setBreed] = useState("");
   const [color, setColor] = useState("");
-  const [favoritetoy, setFavoriteToy] = useState("");
+  const [favoriteToy, setFavoriteToy] = useState("");
   const [personality, setPersonality] = useState("");
 
-
-  // FUNCION MODIFICAR
-  const modificar = () => {
+  // VALORES API
     const data = {
       name,
       image,
@@ -30,11 +38,33 @@ export default function ActualizarPerros() {
       bio,
       breed,
       color,
-      favoritetoy,
+      favoriteToy,
       personality,
-    };
-    axios
-      .put(url + params.perroid, data)
+  };
+  // OBTENIENDO VALOR DEL PERRO
+    useEffect(() => {
+      axios
+        .get(`${url}/${params.perroid}`)
+        .then((res) => {
+          setNameApi(res.data.name);
+          setImageApi(res.data.image);
+          setAgeApi(res.data.age);
+          setBioApi(res.data.bio);
+          setBreedApi(res.data.breed);
+          setColorApi(res.data.color);
+          setFavoriteToyApi(res.data.favoriteToy);
+          setPersonalityApi(res.data.personality);
+          console.log(res.data.name);
+          console.log(res.data.image);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
+  
+  // FUNCION MODIFICAR
+  const modificar = () => {
+      axios.put(url + params.perroid, data)
       .then((res) => {
         console.log(res);
         navigate("/ver");
@@ -44,6 +74,7 @@ export default function ActualizarPerros() {
       });
   };
 
+  // FUNCION DE OBTENER VALORES INPUT
   function valorName(e) {
     setName(e.target.value);
   }
@@ -82,38 +113,34 @@ export default function ActualizarPerros() {
             className=" d-flex justify-content-center">
             <Form>
               <InputGroup className="mb-3 mt-3">
-                <Form.Control
-                  id="name"
-                  onChange={valorName}
-                  placeholder="Nombre"
-                />
+                <Form.Control id="name" onChange={valorName} value={nameApi} />
               </InputGroup>
 
               <InputGroup className="mb-3">
                 <Form.Control
                   id="image"
                   onChange={valorImage}
-                  placeholder="URL de la Imagen"
+                  value={imageApi}
                 />
-              </InputGroup>
-
-              <InputGroup className="mb-3">
-                <Form.Control id="age" onChange={valorAge} placeholder="Edad" />
               </InputGroup>
 
               <InputGroup className="mb-3">
                 <Form.Control
-                  id="bio"
-                  onChange={valorBio}
-                  placeholder="Biografia"
-                />
+                  id="age"
+                  onChange={valorAge}
+                  value = {ageApi} 
+                  />
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <Form.Control id="bio" onChange={valorBio} value={bioApi} />
               </InputGroup>
 
               <InputGroup className="mb-3">
                 <Form.Control
                   id="breed"
                   onChange={valorBreed}
-                  placeholder="Raza"
+                  value={breedApi}
                 />
               </InputGroup>
 
@@ -121,7 +148,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="color"
                   onChange={valorColor}
-                  placeholder="Color"
+                  value={colorApi}
                 />
               </InputGroup>
 
@@ -129,7 +156,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="favoriteToy"
                   onChange={valorFavoriteToy}
-                  placeholder="Juguete favorito"
+                  value={favoriteToyApi}
                 />
               </InputGroup>
 
@@ -137,7 +164,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="personality"
                   onChange={valorPersonality}
-                  placeholder="Personalidad"
+                  value={personalityApi}
                 />
               </InputGroup>
               <div className="d-grid mb-2 ">
