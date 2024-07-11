@@ -113,14 +113,18 @@ export default function ActualizarPerros() {
             className=" d-flex justify-content-center">
             <Form>
               <InputGroup className="mb-3 mt-3">
-                <Form.Control id="name" onChange={valorName} value={nameApi} />
+                <Form.Control
+                  id="name"
+                  onChange={valorName}
+                  placeholder={nameApi}
+                />
               </InputGroup>
 
               <InputGroup className="mb-3">
                 <Form.Control
                   id="image"
                   onChange={valorImage}
-                  value={imageApi}
+                  placeholder={imageApi}
                 />
               </InputGroup>
 
@@ -128,8 +132,8 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="age"
                   onChange={valorAge}
-                  value = {ageApi} 
-                  />
+                  placeholder={ageApi}
+                />
               </InputGroup>
 
               <InputGroup className="mb-3">
@@ -140,7 +144,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="breed"
                   onChange={valorBreed}
-                  value={breedApi}
+                  placeholder={breedApi}
                 />
               </InputGroup>
 
@@ -148,7 +152,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="color"
                   onChange={valorColor}
-                  value={colorApi}
+                  placeholder={colorApi}
                 />
               </InputGroup>
 
@@ -156,7 +160,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="favoriteToy"
                   onChange={valorFavoriteToy}
-                  value={favoriteToyApi}
+                  placeholder={favoriteToyApi}
                 />
               </InputGroup>
 
@@ -164,7 +168,7 @@ export default function ActualizarPerros() {
                 <Form.Control
                   id="personality"
                   onChange={valorPersonality}
-                  value={personalityApi}
+                  placeholder={personalityApi}
                 />
               </InputGroup>
               <div className="d-grid mb-2 ">
